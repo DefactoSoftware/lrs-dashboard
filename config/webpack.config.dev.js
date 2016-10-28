@@ -1,4 +1,3 @@
-var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var findCacheDir = require('find-cache-dir');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
