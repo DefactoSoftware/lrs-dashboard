@@ -14,6 +14,7 @@ module.exports = [
       padding: 0,
       fontFamily: 'inherit',
       fontSize: '1rem',
+      listStyleType: 'none',
     }
   }),
   require('postcss-cssnext'),
