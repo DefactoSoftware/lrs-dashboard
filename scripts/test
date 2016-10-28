@@ -17,6 +17,4 @@ if (!process.env.CI) {
   argv.push('--coverage');
 }
 
-argv.push('--env=jsdom');
-
 jest.run(argv);
