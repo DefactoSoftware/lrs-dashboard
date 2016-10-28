@@ -1,0 +1,16 @@
+exports[`test matches the render snapshot 1`] = `
+<div
+  className="App">
+  <div
+    className="header">
+    <h2
+      className="title">
+      Learning Record Store
+    </h2>
+  </div>
+  <p
+    className="intro">
+    This is where all the learning record store items reside
+  </p>
+</div>
+`;
