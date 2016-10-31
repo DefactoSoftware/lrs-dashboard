@@ -1,0 +1,58 @@
+exports[`test renders no activities when no activities are present 1`] = `
+<ul
+  className="ActivitiesList" />
+`;
+
+exports[`test renders three activities when three activities are present 1`] = `
+<ul
+  className="ActivitiesList">
+  <li
+    className="item">
+    <p>
+      <span>
+        foo@bar.com
+      </span>
+       
+      <strong>
+        created
+      </strong>
+       
+      <span>
+        Chapter
+      </span>
+    </p>
+  </li>
+  <li
+    className="item">
+    <p>
+      <span>
+        bar@foo.com
+      </span>
+       
+      <strong>
+        updated
+      </strong>
+       
+      <span>
+        Space
+      </span>
+    </p>
+  </li>
+  <li
+    className="item">
+    <p>
+      <span>
+        foo@bar.com
+      </span>
+       
+      <strong>
+        created
+      </strong>
+       
+      <span>
+        Portrait
+      </span>
+    </p>
+  </li>
+</ul>
+`;

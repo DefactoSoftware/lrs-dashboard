@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import Activities from './component';
-import { activitiesSelector } from '../../selectors/activities';
+import { getSortedActivities } from '../../selectors/activities';
 
 const mapStateToProps = state => ({
-  activities: activitiesSelector(state),
+  activities: getSortedActivities(state),
 });
 
 const mapDispatchToProps = dispatch => ({});

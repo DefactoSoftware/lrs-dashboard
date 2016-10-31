@@ -8,9 +8,7 @@ exports[`test matches the render snapshot 1`] = `
       Learning Record Store
     </h2>
   </div>
-  <p
-    className="intro">
-    This is where all the learning record store items reside
-  </p>
+  <div
+    className="content" />
 </div>
 `;
