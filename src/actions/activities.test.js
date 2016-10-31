@@ -2,7 +2,7 @@ import { addActivities } from './activities';
 import { ADD_ACTIVITIES } from '.';
 
 describe('activitiesActions', ()=> {
-  it('should craete an action to add activities', ()=> {
+  it('should create an action to add activities', ()=> {
     const activities = [];
 
     expect(addActivities(activities)).toEqual({

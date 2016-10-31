@@ -10,11 +10,8 @@ import ApplicationContainer from './components/Application/container';
 import ActivitiesContainer from './components/Activities/container';
 import NoMatch from './components/NoMatch';
 
-const store = createStore(
-  reducers,
-  {},
-  applyMiddleware(createLogger()),
-);
+const logger = createLogger();
+const store = createStore(reducers, {}, applyMiddleware(logger));
 
 const history = syncHistoryWithStore(browserHistory, store);
 
