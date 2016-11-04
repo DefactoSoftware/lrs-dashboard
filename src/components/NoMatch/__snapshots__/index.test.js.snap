@@ -1,0 +1,5 @@
+exports[`test matches the render snapshot 1`] = `
+<div>
+  Nothing here
+</div>
+`;

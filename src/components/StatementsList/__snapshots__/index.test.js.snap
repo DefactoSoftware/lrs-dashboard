@@ -1,58 +1,16 @@
-exports[`test renders no statements when no statements are present 1`] = `
+exports[`<StatementList /> renders no statements when no statements are present 1`] = `
 <ul
   className="StatementsList" />
 `;
 
-exports[`test renders three statements when three statements are present 1`] = `
+exports[`<StatementList /> renders three statements when three statements are present 1`] = `
 <ul
   className="StatementsList">
   <li
-    className="item">
-    <p>
-      <span>
-        foo@bar.com
-      </span>
-       
-      <strong>
-        created
-      </strong>
-       
-      <span>
-        Chapter
-      </span>
-    </p>
-  </li>
+    className="item" />
   <li
-    className="item">
-    <p>
-      <span>
-        bar@foo.com
-      </span>
-       
-      <strong>
-        updated
-      </strong>
-       
-      <span>
-        Space
-      </span>
-    </p>
-  </li>
+    className="item" />
   <li
-    className="item">
-    <p>
-      <span>
-        foo@bar.com
-      </span>
-       
-      <strong>
-        created
-      </strong>
-       
-      <span>
-        Portrait
-      </span>
-    </p>
-  </li>
+    className="item" />
 </ul>
 `;
