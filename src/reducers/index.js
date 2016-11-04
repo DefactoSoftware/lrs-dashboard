@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import activities from './activities';
+import statements from './statements';
 
 export default combineReducers({
-  activities,
+  statements,
   routing: routerReducer
 })

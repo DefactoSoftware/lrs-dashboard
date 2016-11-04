@@ -1,11 +1,11 @@
-exports[`test renders no activities when no activities are present 1`] = `
+exports[`test renders no statements when no statements are present 1`] = `
 <ul
-  className="ActivitiesList" />
+  className="StatementsList" />
 `;
 
-exports[`test renders three activities when three activities are present 1`] = `
+exports[`test renders three statements when three statements are present 1`] = `
 <ul
-  className="ActivitiesList">
+  className="StatementsList">
   <li
     className="item">
     <p>

@@ -1,9 +1,9 @@
-import activitiesReducer from './activities';
-import { ADD_ACTIVITIES } from '../actions';
+import statementsReducer from './statements';
+import { ADD_STATEMENTS } from '../actions';
 
 describe('activitiesReducer', ()=> {
   it('should handle empty ADD_ACTIVITIES', ()=> {
-    expect(activitiesReducer({}, { type: ADD_ACTIVITIES, payload: []})).toEqual({});
+    expect(statementsReducer({}, { type: ADD_STATEMENTS, payload: []})).toEqual({});
   });
 
   it('should handle ADD_ACTIVITIES', ()=> {
@@ -22,7 +22,7 @@ describe('activitiesReducer', ()=> {
       }
     ];
 
-    expect(activitiesReducer({}, { type: ADD_ACTIVITIES, payload: activities }))
+    expect(statementsReducer({}, { type: ADD_STATEMENTS, payload: activities }))
     .toEqual({
       '1234': {
         id: '1234',

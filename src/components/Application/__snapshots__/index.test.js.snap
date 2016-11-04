@@ -1,6 +1,6 @@
 exports[`test matches the render snapshot 1`] = `
 <div
-  className="App">
+  className="Application">
   <div
     className="header">
     <h2

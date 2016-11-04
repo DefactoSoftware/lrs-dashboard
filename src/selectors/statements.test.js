@@ -1,6 +1,6 @@
-import { getActivities, getSortedActivities } from './activities';
+import { getStatements, getSortedStatements } from './statements';
 const store = {
-  activities: {
+  statements: {
     '1234': {
       id: '1234',
       timestamp: '2016-09-13T15:00:00.000Z',
@@ -16,9 +16,9 @@ const store = {
   }
 };
 
-describe('getActivities', ()=> {
+describe('getStatements', ()=> {
   it('selects an array of activities from an object', () => {
-    expect(getActivities(store)).toEqual([
+    expect(getStatements(store)).toEqual([
       {
         id: '1234',
         timestamp: '2016-09-13T15:00:00.000Z',
@@ -35,9 +35,9 @@ describe('getActivities', ()=> {
   });
 })
 
-describe('getSortedActivities', ()=> {
+describe('getSortedStatements', ()=> {
   it('selects an array of activities from an object', () => {
-    expect(getSortedActivities(store)).toEqual([
+    expect(getSortedStatements(store)).toEqual([
       {
         id: '9012',
         timestamp: '2016-09-13T14:00:00.000Z',

@@ -1,5 +1,5 @@
 import React from 'react';
-import Application from './component';
+import Application from './index';
 import renderer from 'react-test-renderer';
 
 it('matches the render snapshot', () => {

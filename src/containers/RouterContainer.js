@@ -1,9 +1,9 @@
 import React from 'react';
-import ActivitiesContainer from './ActivitiesContainer';
+import StatementsContainer from './StatementsContainer';
 import ApplicationContainer from './ApplicationContainer';
 
 export default ()=>(
   <ApplicationContainer>
-    <ActivitiesContainer />
+    <StatementsContainer />
   </ApplicationContainer>
 );
