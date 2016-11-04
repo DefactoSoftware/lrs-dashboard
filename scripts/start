@@ -10,6 +10,7 @@ require('dotenv').config({silent: true});
 var chalk = require('chalk');
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
+var hotMiddleWare = require('webpack-hot-middleware');
 var historyApiFallback = require('connect-history-api-fallback');
 var httpProxyMiddleware = require('http-proxy-middleware');
 var detect = require('detect-port');
@@ -151,6 +152,9 @@ function addMiddleware(devServer) {
       ['text/html'] :
       ['text/html', '*/*']
   }));
+
+  devServer.use(hotMiddleWare(compiler));
+
   if (proxy) {
     if (typeof proxy !== 'string') {
       console.log(chalk.red('When specified, "proxy" in package.json must be a string.'));
@@ -203,12 +207,6 @@ function runDevServer(host, port, protocol) {
     // for some reason broken when imported through Webpack. If you just want to
     // use an image, put it in `src` and `import` it from JavaScript instead.
     contentBase: paths.appPublic,
-    // Enable hot reloading server. It will provide /sockjs-node/ endpoint
-    // for the WebpackDevServer client so it can learn when the files were
-    // updated. The WebpackDevServer client is included as an entry point
-    // in the Webpack development configuration. Note that only changes
-    // to CSS are currently hot reloaded. JS changes will refresh the browser.
-    hot: true,
     // It is important to tell WebpackDevServer to use the same "root" path
     // as we specified in the config. In development, we always serve from /.
     publicPath: config.output.publicPath,

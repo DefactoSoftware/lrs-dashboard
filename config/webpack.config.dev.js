@@ -38,8 +38,8 @@ module.exports = {
     // Note: instead of the default WebpackDevServer client, we use a custom one
     // to bring better experience for Create React App users. You can replace
     // the line below with these two lines if you prefer the stock client:
-    require.resolve('webpack-dev-server/client') + '?/',
-    require.resolve('webpack/hot/dev-server'),
+    require.resolve('react-hot-loader/patch'),
+    require.resolve('webpack-hot-middleware/client'),
     // We ship a few polyfills by default:
     require.resolve('./polyfills'),
     // Finally, this is your app's code:
@@ -147,6 +147,7 @@ module.exports = {
   // We use PostCSS for autoprefixing only.
   postcss: require('./postcss'),
   plugins: [
+     new webpack.NamedModulesPlugin(),
     // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.

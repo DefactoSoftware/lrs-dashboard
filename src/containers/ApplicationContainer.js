@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Application from './component';
-import { addActivities } from '../../actions/activities';
-import activities from '../../fixtures/activities';
+import Application from '../components/Application';
+import { addActivities } from '../actions/activities';
+import activities from '../fixtures/activities';
 
 class ApplicationContainer extends Component {
   componentWillMount () {

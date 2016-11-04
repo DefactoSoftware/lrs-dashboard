@@ -1,27 +1,32 @@
 import React from 'react';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux'
-import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router'
+import ReactDOM from 'react-dom';
+import { browserHistory } from 'react-router'
 import { syncHistoryWithStore }  from 'react-router-redux';
 import createLogger from 'redux-logger';
+import { AppContainer } from 'react-hot-loader';
 import reducers from './reducers';
-import ApplicationContainer from './components/Application/container';
-import ActivitiesContainer from './components/Activities/container';
-import NoMatch from './components/NoMatch';
+import RouterContainer from './containers/RouterContainer';
 
 const logger = createLogger();
 const store = createStore(reducers, {}, applyMiddleware(logger));
-
 const history = syncHistoryWithStore(browserHistory, store);
 
-render((
-  <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={ApplicationContainer}>
-        <Route path="activities" component={ActivitiesContainer}/>
-        <Route path="*" component={NoMatch}/>
-      </Route>
-    </Router>
-  </Provider>
-), document.getElementById('root'));
+const render = (container)=> (ReactDOM.render((
+  <AppContainer>
+    <Provider store={store}>
+      {container}
+    </Provider>
+  </AppContainer>
+), document.getElementById('root')));
+
+render(<RouterContainer history={history} />);
+
+if (module.hot) {
+  module.hot.accept('./containers/RouterContainer', ()=> {
+    const NextRootContainer = require('./containers/RouterContainer').default;
+
+    render(<NextRootContainer history={history} />);
+  });
+}

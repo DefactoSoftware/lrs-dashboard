@@ -71,7 +71,9 @@
     "redux-immutable-state-invariant": "^1.2.4",
     "redux-logger": "^2.7.0",
     "redux-thunk": "^2.1.0",
-    "reselect": "^2.5.4"
+    "reselect": "^2.5.4",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-hot-middleware": "^2.13.1"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -97,27 +99,8 @@
       "es2015",
       "stage-0"
     ],
-    "env": {
-      "development": {
-        "plugins": [
-          [
-            "react-transform",
-            {
-              "transforms": [
-                {
-                  "transform": "react-transform-hmr",
-                  "imports": [
-                    "react"
-                  ],
-                  "locals": [
-                    "module"
-                  ]
-                }
-              ]
-            }
-          ]
-        ]
-      }
-    }
+    "plugins": [
+      "react-hot-loader/babel"
+    ]
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ActivitiesList from './component';
+import ActivitiesList from './';
 import renderer from 'react-test-renderer';
 
 it('renders no activities when no activities are present', () => {

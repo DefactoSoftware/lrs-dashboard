@@ -1,5 +1,5 @@
 import React from 'react';
-import ActivitiesList from '../ActivitiesList/component';
+import ActivitiesList from '../ActivitiesList';
 
 export default ({ activities })=> (
   <div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Activity from '../Activity/component';
+import Activity from '../Activity';
 import CSS from './style.css';
 
 export default ({ activities })=> {
