@@ -2,6 +2,14 @@
   "name": "lrs-dashboard",
   "version": "0.1.0",
   "private": true,
+  "engines" : {
+    "node" : "6.9.1"
+  },
+  "scripts": {
+    "build": "scripts/build",
+    "start": "scripts/start",
+    "test": "scripts/test",
+  },
   "devDependencies": {
     "autoprefixer": "6.5.1",
     "babel-core": "6.18.2",
