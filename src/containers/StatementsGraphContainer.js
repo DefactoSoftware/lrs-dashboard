@@ -10,12 +10,19 @@ class StatementsGraphContainer extends Component {
   }
 
   render () {
-    return <StatementsGraph links={this.props.links} nodes={this.props.nodes} />;
+    return (
+      <StatementsGraph
+        links={this.props.links}
+        actors={this.props.actors}
+        objects={this.props.objects}
+      />
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  nodes: [...getActors(state), ...getObjects(state)],
+  actors: getActors(state),
+  objects: getObjects(state),
   links: getLinks(state),
 });
 

@@ -1711,7 +1711,7 @@ d3-ease@1, d3-ease@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/d3-ease/-/d3-ease-1.0.1.tgz#a18c2d44e218fb8b9ec6d635bcca587f85979a85"
 
-d3-force@1.0.3:
+d3-force, d3-force@1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/d3-force/-/d3-force-1.0.3.tgz#4b7bc812382b24497954b19a6130b551a33e1b73"
   dependencies:

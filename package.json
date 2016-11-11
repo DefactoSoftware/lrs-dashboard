@@ -2,13 +2,13 @@
   "name": "lrs-dashboard",
   "version": "0.1.0",
   "private": true,
-  "engines" : {
-    "node" : "6.9.1"
+  "engines": {
+    "node": "6.9.1"
   },
   "scripts": {
     "build": "scripts/build",
     "start": "scripts/start",
-    "test": "scripts/test",
+    "test": "scripts/test"
   },
   "devDependencies": {
     "autoprefixer": "6.5.1",
@@ -64,6 +64,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "d3": "^4.3.0",
+    "d3-force": "^1.0.3",
     "http-proxy-middleware": "^0.17.2",
     "postcss-autoreset": "^1.2.1",
     "postcss-color-function": "^2.0.1",
