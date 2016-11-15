@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StatementsGraph from '../components/StatementsGraph';
 import { fetchStatements } from '../actions/statements';
-import { getActors, getObjects, getLinks } from '../selectors/statements';
+import { getStatements } from '../selectors/statements';
 
 class StatementsGraphContainer extends Component {
   componentDidMount () {
@@ -11,19 +11,13 @@ class StatementsGraphContainer extends Component {
 
   render () {
     return (
-      <StatementsGraph
-        links={this.props.links}
-        actors={this.props.actors}
-        objects={this.props.objects}
-      />
+      <StatementsGraph statements={this.props.statements} />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  actors: getActors(state),
-  objects: getObjects(state),
-  links: getLinks(state),
+  statements: getStatements(state),
 });
 
 const mapDispatchToProps = dispatch => ({
