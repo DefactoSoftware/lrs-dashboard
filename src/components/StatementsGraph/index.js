@@ -1,67 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { flatten, pipe, map, reduce, curry } from 'ramda';
+import { insertNodesFromStatements, insertLinksFromStatements } from '../../helpers/Statements';
 import CSS from './style.css';
-import { stringToColor } from '../../helpers/String';
-
-const createLink = ({ actor, verb, object })=> ({
-  source: actor,
-  target: object,
-  id: `${actor}-${object}`,
-  x: 0,
-  y: 0,
-  value: 0
-});
-
-const createNodePair = ({ actor, object })=> [
-  {
-    id: actor,
-    type: 'actor',
-    color: stringToColor('actor'),
-    r: 3,
-  },
-  {
-    id: object,
-    type: 'object',
-    color: stringToColor('object'),
-    r: 3,
-  }
-];
-
-const uniqueByAttributeModifier = curry((attribute, modifier, items, currentItem)=> {
-  const item = items.find(({ id })=> id === currentItem.id) || currentItem;
-
-  return [
-    ...items.filter(({ id })=> id !== item.id),
-    { ...item, [attribute]: modifier(item[attribute] )},
-  ];
-});
-
-const getNodesFromStatements = pipe(
-  map(createNodePair),
-  flatten,
-  reduce(uniqueByAttributeModifier('r', r => r * 1.05), [])
-);
-
-const getLinksFromStatements = pipe(
-  map(createLink),
-  reduce(uniqueByAttributeModifier('value', value => value + 0.25), [])
-);
-
-const joinByKey = (current, next)=> {
-  return next.reduce((list, item)=> {
-    const currentItem = list.find(({ id })=> id === item.id);
-
-    if (currentItem) {
-      return list;
-    }
-
-    list.push(item);
-
-    return list;
-  }, current);
-};
 
 const ActorNode = ({ x, y, r, id, color })=> (
   <circle
@@ -125,8 +66,8 @@ class StatementsGraph extends Component {
   getGraphFromStatements (statements) {
     const { nodes, links } = this.state;
     return {
-      nodes: joinByKey(nodes, getNodesFromStatements(statements)),
-      links: joinByKey(links, getLinksFromStatements(statements)),
+      nodes: insertNodesFromStatements(nodes, statements),
+      links: insertLinksFromStatements(links, statements),
     };
   }
 
@@ -141,8 +82,10 @@ class StatementsGraph extends Component {
                            d3.forceLink().id(d => d.id).strength(d => d.value  / 100)
                          )
                          .force('collision', d3.forceCollide().radius(d => d.r + 0.5).strength(0.9))
-                         .force('charge', d3.forceManyBody())
+                         .force('charge', d3.forceManyBody().strength(-50))
                          .force('center', d3.forceCenter(width / 2, height / 2))
+                         .force('x', d3.forceX().x(d => d.x))
+                         .force('y', d3.forceY().y(d => d.y))
                          .on('tick', ()=> this.forceUpdate());
 
     this.updateSimulation(simulation, statements);
