@@ -1,48 +1,52 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { flatten, pipe, map, reduce } from 'ramda';
+import { flatten, pipe, map, reduce, curry } from 'ramda';
 import CSS from './style.css';
 import { stringToColor } from '../../helpers/String';
 
 const createLink = ({ actor, verb, object })=> ({
   source: actor,
   target: object,
-  id: `${actor}-${verb}-${object}`,
+  id: `${actor}-${object}`,
   x: 0,
   y: 0,
-  weight: 1
+  value: 0
 });
 
 const createNodePair = ({ actor, object })=> [
   {
     id: actor,
     type: 'actor',
-    color: stringToColor(actor),
-    weight: 1,
+    color: stringToColor('actor'),
+    r: 3,
   },
   {
     id: object,
     type: 'object',
-    color: stringToColor(object),
-    weight: 1
+    color: stringToColor('object'),
+    r: 3,
   }
 ];
 
-const assignWeight = (modifier) => (items, item)=> [
-  ...items.filter(({ id })=> id !== item.id),
-  { ...item, weight: modifier(item.weight)},
-];
+const uniqueByAttributeModifier = curry((attribute, modifier, items, currentItem)=> {
+  const item = items.find(({ id })=> id === currentItem.id) || currentItem;
+
+  return [
+    ...items.filter(({ id })=> id !== item.id),
+    { ...item, [attribute]: modifier(item[attribute] )},
+  ];
+});
 
 const getNodesFromStatements = pipe(
   map(createNodePair),
   flatten,
-  reduce(assignWeight(w => w * 10), [])
+  reduce(uniqueByAttributeModifier('r', r => r * 1.05), [])
 );
 
 const getLinksFromStatements = pipe(
   map(createLink),
-  reduce(assignWeight(w => w + 1), [])
+  reduce(uniqueByAttributeModifier('value', value => value + 0.25), [])
 );
 
 const joinByKey = (current, next)=> {
@@ -59,12 +63,11 @@ const joinByKey = (current, next)=> {
   }, current);
 };
 
-const ActorNode = ({ x, y, weight, id, color })=> (
+const ActorNode = ({ x, y, r, id, color })=> (
   <circle
-    r={weight}
+    r={r}
     fill={color}
-    cx={x}
-    cy={y}
+    transform={`translate(${x}, ${y})`}
     key={id}
     rel={id}
     title={id}
@@ -72,13 +75,12 @@ const ActorNode = ({ x, y, weight, id, color })=> (
   />
 );
 
-const ObjectNode = ({ x, y, weight, id, color })=> (
+const ObjectNode = ({ x, y, r, id, color })=> (
   <rect
-    width={weight}
-    height={weight}
+    width={r}
+    height={r}
     fill={color}
-    x={x}
-    y={y}
+    transform={`translate(${x - r / 2}, ${y - r / 2})`}
     key={id}
     rel={id}
     title={id}
@@ -96,11 +98,10 @@ const NodeRepresentation = ({ type, ...attributes })=> {
 
 const NodeLink = ({
   id,
-  weight,
+  value,
   source: { x: sourceX, y: sourceY } = { x: 0, y: 0 },
   target: { x: targetX, y: targetY } = { x: 0, y: 0 },
 })=> {
-  console.log(weight);
   return (
     <line
       className={CSS.Link}
@@ -110,7 +111,7 @@ const NodeLink = ({
       y2={targetY}
       data-id={id}
       key={id}
-      strokeWidth={weight}
+      strokeWidth={value}
     />
   );
 }
@@ -135,9 +136,12 @@ class StatementsGraph extends Component {
     const width = svg.clientWidth;
     const height = svg.clientHeight;
     const simulation = d3.forceSimulation()
-                         .force('link', d3.forceLink().id(d => d.id).distance(50))
+                         .force(
+                           'link',
+                           d3.forceLink().id(d => d.id).strength(d => d.value  / 100)
+                         )
+                         .force('collision', d3.forceCollide().radius(d => d.r + 0.5).strength(0.9))
                          .force('charge', d3.forceManyBody())
-                         .force('collide', d3.forceCollide().radius((d)=> d.r * 10).strength(1))
                          .force('center', d3.forceCenter(width / 2, height / 2))
                          .on('tick', ()=> this.forceUpdate());
 
