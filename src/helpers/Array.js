@@ -1,8 +1,8 @@
-import { curry } from 'ramda' ;
+import { curry, reduce } from 'ramda' ;
 
-export const mutableJoinByKey = (current, next)=> {
+export const mutableJoinByKey = curry((key, current, next)=> {
   return next.reduce((list, item)=> {
-    const currentItem = list.find(({ id })=> id === item.id);
+    const currentItem = list.find((i)=> i[key] === item[key]);
 
     if (currentItem) {
       return list;
@@ -12,13 +12,16 @@ export const mutableJoinByKey = (current, next)=> {
 
     return list;
   }, current);
-};
-
-export const modifyUniqueByAttribute = curry((attribute, modifier, items, currentItem)=> {
-  const item = items.find(({ id })=> id === currentItem.id) || currentItem;
-
-  return [
-    ...items.filter(({ id })=> id !== item.id),
-    { ...item, [attribute]: modifier(item[attribute] )},
-  ];
 });
+
+export const modifyUniqueByAttribute = curry(
+  (key, attribute, modifier, items)=>
+  reduce((accumulator, current)=> {
+    const found = accumulator.find(i => i[key] === current[key]) || current;
+
+    return [
+      ...accumulator.filter(i => i[key] !== found[key]),
+      { ...found, [attribute]: modifier(found[attribute])},
+    ];
+  }, [], items)
+);

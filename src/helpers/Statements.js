@@ -1,4 +1,4 @@
-import { flatten, pipe, map, reduce } from 'ramda';
+import { flatten, pipe, map } from 'ramda';
 import { stringToColor } from './String';
 import { modifyUniqueByAttribute, mutableJoinByKey } from './Array';
 
@@ -26,23 +26,27 @@ export const createNodePair = ({ actor, object })=> [
   }
 ];
 
+const modifyUniqueIdByAttribute = modifyUniqueByAttribute('id');
+
 export const getNodes = pipe(
   map(createNodePair),
   flatten,
-  reduce(modifyUniqueByAttribute('r', r => r * 1.05), [])
+  modifyUniqueIdByAttribute('r', r => r * 1.05)
 );
 
 export const getLinks = pipe(
   map(createLink),
-  reduce(modifyUniqueByAttribute('value', value => value + 0.25), [])
+  modifyUniqueIdByAttribute('value', value => value + 0.25)
 );
 
-export const insertNodesFromStatements = (nodes, statements)=> mutableJoinByKey(
+const mutableJoinById = mutableJoinByKey('id');
+
+export const insertNodesFromStatements = (nodes, statements)=> mutableJoinById(
   nodes,
   getNodes(statements)
 );
 
-export const insertLinksFromStatements = (links, statements)=> mutableJoinByKey(
+export const insertLinksFromStatements = (links, statements)=> mutableJoinById(
   links,
   getLinks(statements)
 );

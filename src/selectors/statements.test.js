@@ -1,4 +1,4 @@
-import { getStatements, getSortedStatements, getActors, getObjects, getLinks } from './statements';
+import { getStatements, getSortedStatements } from './statements';
 const store = {
   statements: {
     '1234': {
@@ -77,32 +77,6 @@ describe('getSortedStatements', ()=> {
         object: 'Space',
         verb: 'added',
       }
-    ]);
-  });
-});
-
-describe('getActors', ()=> {
-  it('returns an array of the actors of the statements from an object', () => {
-    expect(getActors(store)).toEqual([
-      'Foo', 'Bar', 'Flux'
-    ]);
-  });
-});
-
-describe('getObjects', ()=> {
-  it('returns an array of the actors of the statements from an object', () => {
-    expect(getObjects(store)).toEqual([
-      'Chapter', 'Space', 'Path'
-    ]);
-  });
-});
-
-describe('getLinks', ()=> {
-  it('returns an array of the actors of the statements from an object', () => {
-    expect(getLinks(store)).toEqual([
-      { source: 'Foo', target: 'Chapter', value: 'updated' },
-      { source: 'Bar', target: 'Space', value: 'added' },
-      { source: 'Flux', target: 'Path', value: 'created' },
     ]);
   });
 });
