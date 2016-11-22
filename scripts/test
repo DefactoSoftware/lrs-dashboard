@@ -1,4 +1,4 @@
-#!/usr/bin/env node --harmony_proxies
+#!./.bin/node_harmony_proxies
 process.env.NODE_ENV = 'test';
 process.env.PUBLIC_URL = '';
 
