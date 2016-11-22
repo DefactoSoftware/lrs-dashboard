@@ -1,9 +1,9 @@
 import React from 'react';
-import StatementsGraphContainer from './StatementsGraphContainer';
+import StatementsDiagramContainer from './StatementsDiagramContainer';
 import ApplicationContainer from './ApplicationContainer';
 
 export default ()=>(
   <ApplicationContainer>
-    <StatementsGraphContainer />
+    <StatementsDiagramContainer />
   </ApplicationContainer>
 );
