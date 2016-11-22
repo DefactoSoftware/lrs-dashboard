@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { insertNodesFromStatements, insertLinksFromStatements } from '../../helpers/Statements';
 import CSS from './style.css';
 
-const ActorNode = ({ x, y, r, id, color })=> (
+const SourceNode = ({ x, y, r, id, color })=> (
   <circle
     r={r}
     fill={color}
@@ -16,7 +15,7 @@ const ActorNode = ({ x, y, r, id, color })=> (
   />
 );
 
-const ObjectNode = ({ x, y, r, id, color })=> (
+const TargetNode = ({ x, y, r, id, color })=> (
   <rect
     width={r}
     height={r}
@@ -31,10 +30,10 @@ const ObjectNode = ({ x, y, r, id, color })=> (
 
 const NodeRepresentation = ({ type, ...attributes })=> {
   if (type === 'object') {
-    return <ObjectNode {...attributes} />;
+    return <TargetNode {...attributes} />;
   }
 
-  return <ActorNode {...attributes} />;
+  return <SourceNode {...attributes} />;
 };
 
 const NodeLink = ({
@@ -57,61 +56,46 @@ const NodeLink = ({
   );
 }
 
-class StatementsGraph extends Component {
-  state = {
-    nodes: [],
-    links: [],
-  }
-
-  getGraphFromStatements (statements) {
-    const { nodes, links } = this.state;
-    return {
-      nodes: insertNodesFromStatements(nodes, statements),
-      links: insertLinksFromStatements(links, statements),
-    };
-  }
-
-  componentDidMount () {
-    const { statements } = this.props;
-    const svg = ReactDOM.findDOMNode(this);
-    const width = svg.clientWidth;
-    const height = svg.clientHeight;
-    const simulation = d3.forceSimulation()
-                         .force(
-                           'link',
-                           d3.forceLink().id(d => d.id).strength(d => d.value  / 100)
-                         )
+class NetworkGraph extends Component {
+  componentWillMount () {
+    const { nodes, links } = this.props;
+    const simulation = d3.forceSimulation(nodes)
+                         .force('link', d3.forceLink(links).id(d => d.id).strength(d => d.value  / 100))
                          .force('collision', d3.forceCollide().radius(d => d.r + 0.5).strength(0.9))
                          .force('charge', d3.forceManyBody().strength(-50))
-                         .force('center', d3.forceCenter(width / 2, height / 2))
                          .force('x', d3.forceX().x(d => d.x))
                          .force('y', d3.forceY().y(d => d.y))
                          .on('tick', ()=> this.forceUpdate());
 
-    this.updateSimulation(simulation, statements);
+     this.setState({ simulation });
+  }
+
+  componentDidMount () {
+    const { simulation } = this.state;
+    const svg = ReactDOM.findDOMNode(this);
+    const width = svg.clientWidth;
+    const height = svg.clientHeight;
+
+    simulation.force('center', d3.forceCenter(width / 2, height / 2))
+
+    this.setState({ simulation });
   }
 
   componentWillReceiveProps (nextProps) {
-    const { statements } = nextProps;
     const { simulation } = this.state;
-
-    this.updateSimulation(simulation, statements);
-  }
-
-  updateSimulation (simulation, statements) {
-    const { nodes, links } = this.getGraphFromStatements(statements);
-
-    this.setState({ nodes, links, simulation });
+    const { nodes, links } = nextProps;
 
     simulation.force('link').links(links);
     simulation.nodes(nodes);
+
+    this.setState({ simulation });
   }
 
   render () {
-    const { nodes, links } = this.state;
+    const { nodes, links } = this.props;
 
     return (
-      <svg className={CSS.StatementsGraph}>
+      <svg className={CSS.NetworkGraph}>
         {links.map(link => <NodeLink {...link} key={link.id} />)}
         {nodes.map(node => <NodeRepresentation {...node} key={node.id} />)}
       </svg>
@@ -119,4 +103,4 @@ class StatementsGraph extends Component {
   }
 }
 
-export default StatementsGraph;
+export default NetworkGraph;

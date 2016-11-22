@@ -1,17 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import StatementsGraph from '../components/StatementsGraph';
+import NetworkGraph from '../components/NetworkGraph';
 import { fetchStatements } from '../actions/statements';
 import { getStatements } from '../selectors/statements';
+import { insertNodesFromStatements, insertLinksFromStatements } from '../helpers/Statements';
 
 class StatementsGraphContainer extends Component {
+  state = {
+    nodes: [],
+    links: [],
+  }
+
   componentDidMount () {
+    const { statements } = this.props;
+    const { nodes, links } = this.getGraphFromStatements(statements);
+
+    this.setState({ nodes, links });
     this.props.onMount();
   }
 
+  componentWillReceiveProps (nextProps) {
+    const { statements } = nextProps;
+    const { nodes, links } = this.getGraphFromStatements(statements);
+
+    this.setState({ nodes, links });
+  }
+
+  getGraphFromStatements (statements) {
+    const { nodes, links } = this.state;
+    return {
+      nodes: insertNodesFromStatements(nodes, statements),
+      links: insertLinksFromStatements(links, statements),
+    };
+  }
+
   render () {
+    const { nodes, links } = this.state;
     return (
-      <StatementsGraph statements={this.props.statements} />
+      <NetworkGraph nodes={nodes} links={links} />
     );
   }
 }
