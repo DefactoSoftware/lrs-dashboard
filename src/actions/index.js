@@ -1,2 +1,3 @@
-export const ADD_STATEMENTS = 'ADD_STATEMENTS';
-export const FETCH_STATEMENTS = 'FETCH_STATEMENTS';
+export const STATEMENTS_REQUESTED = 'statements/request';
+export const STATEMENTS_SUCCESS = 'statements/success';
+export const STATEMENTS_ERROR = 'statements/error';

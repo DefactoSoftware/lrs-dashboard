@@ -5,18 +5,19 @@ import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore }  from 'react-router-redux';
 import createLogger from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import { AppContainer } from 'react-hot-loader';
 import reducers from './reducers';
 import RouterContainer from './containers/RouterContainer';
+import { watchStatements } from './actions/statements';
+
+const saga = createSagaMiddleware();
 
 const logger = createLogger();
-const store = createStore(
-  reducers,
-  {},
-  applyMiddleware(logger, thunkMiddleware),
-);
+const store = createStore(reducers, {}, applyMiddleware(logger, saga));
 const history = syncHistoryWithStore(browserHistory, store);
+
+saga.run(watchStatements);
 
 const render = (container)=> (ReactDOM.render((
   <AppContainer>

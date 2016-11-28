@@ -1,21 +1,18 @@
 import { createAction } from 'redux-actions';
+import { takeLatest } from 'redux-saga';
+import { call, put } from 'redux-saga/effects';
 import * as StatementsAPI from '../api/Statements';
-import { ADD_STATEMENTS, FETCH_STATEMENTS } from './index';
+import { STATEMENTS_SUCCESS, STATEMENTS_REQUESTED } from './index';
 
-export const addStatements = createAction(ADD_STATEMENTS);
-export const fetchStatementsLoading = createAction(FETCH_STATEMENTS, ()=> ({ loading: true }));
-export const fetchStatementsError = createAction(FETCH_STATEMENTS, ()=> ({ error: true }));
-export const fetchStatementsSuccess = createAction(FETCH_STATEMENTS, ()=> ({ success: true }));
+export const addStatements = createAction(STATEMENTS_SUCCESS);
+export const fetchStatements = createAction(STATEMENTS_REQUESTED);
 
-export const fetchStatements = ()=> dispatch => {
-  dispatch(fetchStatementsLoading());
+export function* handleFetchStatements () {
+  const { data: statements } = yield call(StatementsAPI.fetchStatements);
 
-  return StatementsAPI.fetchStatements()
-    .then(({ data })=> {
-      dispatch(fetchStatementsSuccess());
-      dispatch(addStatements(data));
-    })
-    .catch(()=> {
-      dispatch(fetchStatementsError());
-    });
-};
+  yield put(addStatements(statements));
+}
+
+export function* watchStatements () {
+  yield* takeLatest(STATEMENTS_REQUESTED, handleFetchStatements);
+}

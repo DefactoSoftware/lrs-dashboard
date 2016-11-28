@@ -38,6 +38,7 @@ module.exports = {
     // Note: instead of the default WebpackDevServer client, we use a custom one
     // to bring better experience for Create React App users. You can replace
     // the line below with these two lines if you prefer the stock client:
+    'babel-polyfill',
     require.resolve('react-hot-loader/patch'),
     require.resolve('webpack-hot-middleware/client'),
     // We ship a few polyfills by default:
