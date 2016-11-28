@@ -1,4 +1,4 @@
 export function fetchStatements() {
-  return fetch('http://localhost:3000/api/statements')
+  return fetch(`${process.env.LRS_DASHBOARD_API_URL}/statements/`)
     .then(response => response.json());
 }
