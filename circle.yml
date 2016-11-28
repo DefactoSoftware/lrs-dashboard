@@ -12,7 +12,7 @@ dependencies:
     - yarn --version
 
   override:
-    - yarn install
+    - scripts/update
 
 test:
   override:

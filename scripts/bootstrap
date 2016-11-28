@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+cd "$(dirname "$0")/.."
+
+if $(command -v nvm); then
+  nvm install $(cat .nvmrc)
+
+  nvm use $(cat .nvmrc)
+fi
+
+scripts/update
