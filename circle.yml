@@ -22,7 +22,7 @@ deployment:
   production:
     branch: master
     commands:
-      - scripts/build:
+      - scripts/deploy:
           environment:
             LRS_DASHBOARD_API_URL: https://lrsapi.herokuapp.com
-      - surge --project ./build/ --domain lrs-dashboard-example.surge.sh
+            LRS_DASHBOARD_DOMAIN: lrs-dashboard-example.surge.sh
