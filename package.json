@@ -86,6 +86,7 @@
     "request": "^2.78.0",
     "request-promise": "^4.1.1",
     "reselect": "^2.5.4",
+    "surge": "^0.18.0",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.1"
   },
