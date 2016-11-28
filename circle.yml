@@ -17,3 +17,12 @@ dependencies:
 test:
   override:
     - scripts/test
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - scripts/build:
+          environment:
+            LRS_DASHBOARD_API_URL: https://lrsapi.herokuapp.com
+      - surge --project ./build/ --domain lrs-dashboard-example.surge.sh
