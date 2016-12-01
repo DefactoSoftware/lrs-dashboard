@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+cd "$(dirname "$0")/.."
+
+trap "trap - SIGTERM 2> /dev/null && kill -- -$$ 2> /dev/null" INT TERM EXIT
+
+NODE_ENV="test" scripts/build
+
+./node_modules/.bin/http-server build/ --silent &
+
+PARAMETERS=""
+
+if [ "$1" != "" ]; then
+  PARAMETERS="--spec $1"
+fi
+
+APPLICATION_URL="http://localhost:9000" wdio config/wdio.config.js $PARAMETERS

@@ -3,8 +3,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-var getClientEnvironment = require('./env');
-var paths = require('./paths');
+var getClientEnvironment = require('../env');
+var paths = require('../paths');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -40,7 +40,7 @@ module.exports = {
     require.resolve('react-hot-loader/patch'),
     require.resolve('webpack-hot-middleware/client'),
     // We ship a few polyfills by default:
-    require.resolve('./polyfills'),
+    require.resolve('../polyfills'),
     // Finally, this is your app's code:
     paths.appIndexJs
     // We include the app code last so that if there is a runtime error during
@@ -135,7 +135,7 @@ module.exports = {
   },
 
   // We use PostCSS for autoprefixing only.
-  postcss: require('./postcss'),
+  postcss: require('../postcss'),
   plugins: [
      new webpack.NamedModulesPlugin(),
     // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:

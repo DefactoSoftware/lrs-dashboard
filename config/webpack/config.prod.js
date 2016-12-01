@@ -4,8 +4,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var url = require('url');
-var paths = require('./paths');
-var getClientEnvironment = require('./env');
+var paths = require('../paths');
+var getClientEnvironment = require('../env');
 
 function ensureSlash(path, needsSlash) {
   var hasSlash = path.endsWith('/');
@@ -52,7 +52,7 @@ module.exports = {
   devtool: 'source-map',
   // In production, we only want to load the polyfills and the app code.
   entry: [
-    require.resolve('./polyfills'),
+    require.resolve('../polyfills'),
     paths.appIndexJs
   ],
   output: {
@@ -156,7 +156,7 @@ module.exports = {
   },
 
   // We use PostCSS for autoprefixing only.
-  postcss: require('./postcss'),
+  postcss: require('../postcss'),
   plugins: [
     // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -169,7 +169,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
-      filename: '200.html',
+      filename: 'index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,

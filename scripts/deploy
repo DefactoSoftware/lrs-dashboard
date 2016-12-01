@@ -3,5 +3,11 @@ set -e
 
 cd "$(dirname "$0")/.."
 
+TMP_BUILD_DIR="/tmp/lrs-dashboard-surge-build"
+
 scripts/build
-./node_modules/.bin/surge --project ./build/ --domain "$LRS_DASHBOARD_DOMAIN"
+
+cp -R build/ $TMP_BUILD_DIR
+mv "$TMP_BUILD_DIR/index.html" "$TMP_BUILD_DIR/200.html"
+
+./node_modules/.bin/surge --project "$TMP_BUILD_DIR" --domain "$LRS_DASHBOARD_DOMAIN"
