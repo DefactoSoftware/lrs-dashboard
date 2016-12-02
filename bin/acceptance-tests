@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 trap "trap - SIGTERM 2> /dev/null && kill -- -$$ 2> /dev/null" INT TERM EXIT
 
 NODE_BIN="./node_modules/.bin"
-NODE_ENV="test" scripts/build
+NODE_ENV="test" script/build config/webpack/test.js
 
 $NODE_BIN/http-server build/ --silent &
 

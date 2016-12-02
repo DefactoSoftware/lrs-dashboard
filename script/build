@@ -16,11 +16,12 @@ var filesize = require('filesize');
 var gzipSize = require('gzip-size').sync;
 var rimrafSync = require('rimraf').sync;
 var webpack = require('webpack');
-var config = require('../config/webpack/config.prod');
 var paths = require('../config/paths');
 var checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 var recursive = require('recursive-readdir');
 var stripAnsi = require('strip-ansi');
+var argv = require('yargs').argv;
+var config = require(argv._[0] ? path.join(process.cwd(), argv._[0]) : '../config/webpack/production.js');
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
@@ -121,7 +122,7 @@ function printErrors(summary, errors) {
 
 // Create the production build and print the deployment instructions.
 function build(previousSizeMap) {
-  console.log('Creating an optimized production build...');
+  console.log('Creating build...');
   webpack(config).run((err, stats) => {
     if (err) {
       printErrors('Failed to compile.', [err]);
