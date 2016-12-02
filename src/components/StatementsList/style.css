@@ -1,5 +1,7 @@
 .StatementsList {
   margin: 0 auto;
+  max-width: 1200px;
+  list-style-type: none;
 }
 
 .item {
