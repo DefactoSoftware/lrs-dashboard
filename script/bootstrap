@@ -9,4 +9,4 @@ if $(command -v nvm); then
   nvm use $(cat .nvmrc)
 fi
 
-scripts/update
+script/update

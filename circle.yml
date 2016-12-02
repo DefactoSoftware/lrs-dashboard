@@ -12,17 +12,17 @@ dependencies:
     - yarn --version
 
   override:
-    - scripts/update
+    - script/update
 
 test:
   override:
-    - scripts/test
+    - script/test
 
 deployment:
   production:
     branch: master
     commands:
-      - scripts/deploy:
+      - script/deploy:
           environment:
             LRS_DASHBOARD_API_URL: https://lrsapi.herokuapp.com
             LRS_DASHBOARD_DOMAIN: lrs-dashboard-example.surge.sh

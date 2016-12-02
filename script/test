@@ -3,8 +3,8 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-echo "==> Running unit tests..."
+echo "\n==> Running unit tests..."
 CI=true ./bin/node-harmony-proxies ./bin/unit-tests
 
-echo "==> Running acceptance tests..."
+echo "\n==> Running acceptance tests..."
 CI=true ./bin/acceptance-tests
