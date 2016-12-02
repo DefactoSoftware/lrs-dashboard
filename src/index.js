@@ -1,5 +1,5 @@
 import React from 'react';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router'
@@ -10,14 +10,23 @@ import { AppContainer } from 'react-hot-loader';
 import reducers from './reducers';
 import RouterContainer from './containers/RouterContainer';
 import { watchStatements } from './actions/statements';
+import { watchUsers } from './actions/users';
 
 const saga = createSagaMiddleware();
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const logger = createLogger();
-const store = createStore(reducers, {}, applyMiddleware(logger, saga));
+const store = createStore(
+  reducers,
+  {},
+  composeEnhancers(applyMiddleware(logger, saga))
+);
+
 const history = syncHistoryWithStore(browserHistory, store);
 
 saga.run(watchStatements);
+saga.run(watchUsers);
 
 const render = (container)=> (ReactDOM.render((
   <AppContainer>

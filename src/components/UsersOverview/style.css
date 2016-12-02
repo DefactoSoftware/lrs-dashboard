@@ -1,0 +1,9 @@
+.UsersList {
+  margin: 0 auto;
+  max-width: 1000px;
+  list-style-type: none;
+}
+
+.item {
+  border-bottom: 1px solid #ccc;
+}

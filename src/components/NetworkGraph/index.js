@@ -91,6 +91,12 @@ class NetworkGraph extends Component {
     this.setState({ simulation });
   }
 
+  componentWillUnmount () {
+    const { simulation } = this.state;
+
+    simulation.stop();
+  }
+
   render () {
     const { nodes, links } = this.props;
 
