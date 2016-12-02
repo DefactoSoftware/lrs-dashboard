@@ -52,6 +52,8 @@ module.exports = {
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
     devtoolModuleFilenameTemplate: '[absolute-resource-path]',
+    hotUpdateChunkFilename: 'hot/hot-update.js',
+    hotUpdateMainFilename: 'hot/hot-update.json'
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.

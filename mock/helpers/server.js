@@ -24,7 +24,10 @@ export default function (scenario = getScenarioFromURL()) {
     server.shutdown();
   }
 
-  server = new Pretender(require(`../scenarios/${scenario || 'default'}`));
+  server = new Pretender(function () {
+    this.get('/hot/hot-update.json', this.passthrough);
+    this.get('/hot/hot-update.js', this.passthrough);
+  }, require(`../scenarios/${scenario || 'default'}`));
 
   server.handledRequest = function(verb, path, request) {
     console.groupCollapsed(verb, path);
