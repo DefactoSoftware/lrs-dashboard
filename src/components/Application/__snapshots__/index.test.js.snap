@@ -2,11 +2,37 @@ exports[`test matches the render snapshot 1`] = `
 <div
   className="Application">
   <div
-    className="header">
+    className="Header">
     <h2
       className="title">
       Learning Record Store
     </h2>
+    <nav>
+      <ul
+        className="NavigationList">
+        <li
+          className="NavigationItem">
+          <a
+            href="/users">
+            Users
+          </a>
+        </li>
+        <li
+          className="NavigationItem">
+          <a
+            href="/statements/graph">
+            Statements Graph
+          </a>
+        </li>
+        <li
+          className="NavigationItem">
+          <a
+            href="/statements/list">
+            Statements List
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
   <div
     className="content" />
