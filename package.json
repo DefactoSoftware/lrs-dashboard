@@ -93,7 +93,7 @@
     "reselect": "^2.5.4",
     "surge": "^0.18.0",
     "wdio": "^0.3.3",
-    "wdio-cucumber-utilities": "^0.0.1",
+    "wdio-cucumber-utilities": "^0.1.0",
     "webdriverio": "^4.4.0",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.1"
