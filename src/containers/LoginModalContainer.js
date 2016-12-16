@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { prop } from 'ramda';
 import { authenticateUser } from '../actions/sessions';
 import LoginModal from '../components/LoginModal';
+import { getPreviousState } from '../selectors/location';
 
-class LoginContainer extends Component {
+class LoginContainer extends PureComponent {
   state = {
-    email: '',
-    password: ''
+    email: 'foo@bar.com',
+    password: '12345678',
   };
 
   componentWillMount() {
-    this.checkAuth();
+    this.checkAuth(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.checkAuth();
+    const { isAuthenticated: wasAuthenticated } = this.props;
+    const { isAuthenticated } = nextProps;
+
+    if (wasAuthenticated !== isAuthenticated) {
+      this.checkAuth(nextProps);
+    }
   }
 
-  checkAuth() {
-    if (this.props.isAuthenticated) {
-
-      browserHistory.push({
-        pathname: this.props.returnTo || '/',
+  checkAuth({ isAuthenticated, returnTo }) {
+    if (isAuthenticated && returnTo) {
+      browserHistory.replace({
+        pathname: returnTo,
       });
     }
   }
@@ -54,9 +60,10 @@ class LoginContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
+  state,
   isAuthenticated: !!state.sessions.user,
-  returnTo: state.routing.locationBeforeTransitions.state.returnTo
+  returnTo: prop('returnTo', getPreviousState(state)) || '/'
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import Application from '../components/Application';
+import { getState as getLocationState } from '../selectors/location';
+import { prop } from 'ramda';
 
-class ApplicationContainer extends Component {
+class ApplicationContainer extends PureComponent {
   componentWillReceiveProps(nextProps) {
-    if (!this.hasKeepPrevious(this.props) && this.hasKeepPrevious(nextProps)) {
+    if (!this.props.keepPrevious && nextProps.keepPrevious) {
       this.previousChildren = this.props.children
     }
 
-    if (this.hasKeepPrevious(this.props) && !this.hasKeepPrevious(nextProps)) {
+    if (this.props.keepPrevious && !nextProps.keepPrevious) {
       this.previousChildren = null;
     }
-  }
-
-  hasKeepPrevious(props) {
-    return props.location && props.location.state && props.location.state.keepPrevious;
   }
 
   render() {
@@ -27,4 +25,9 @@ class ApplicationContainer extends Component {
   }
 }
 
-export default connect()(ApplicationContainer);
+const mapStateToProps = (state, ownProps) => ({
+  keepPrevious: prop('keepPrevious', getLocationState(ownProps))
+})
+
+
+export default connect(mapStateToProps)(ApplicationContainer);

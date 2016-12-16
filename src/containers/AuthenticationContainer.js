@@ -1,27 +1,22 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { getPathName } from '../selectors/location';
 
 export function requireAuthentication(Component) {
-  class AuthenticatedComponent extends React.Component {
+  class AuthenticatedComponent extends PureComponent {
 
     componentWillMount() {
-      this.checkAuth();
+      this.checkAuth(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-      this.checkAuth();
-    }
-
-    checkAuth() {
-      if (!this.props.isAuthenticated) {
-        const redirectAfterLogin = this.props.location.pathname;
-
-        browserHistory.push({
+    checkAuth({ isAuthenticated, returnTo }) {
+      if (!isAuthenticated) {
+        browserHistory.replace({
           pathname: '/login',
           state: {
             keepPrevious: true,
-            returnTo: redirectAfterLogin
+            returnTo
           }
         });
       }
@@ -36,13 +31,16 @@ export function requireAuthentication(Component) {
         return this.props.children;
       }
 
-      return <p>Not authorized</p>;
+      return null;
     }
   }
 
-  const mapStateToProps = (state) => ({
-    isAuthenticated: !!state.sessions.user
-  });
+  const mapStateToProps = (state, ownProps) => {
+    return ({
+      isAuthenticated: !!state.sessions.user,
+      returnTo: getPathName(ownProps) || '/'
+    });
+  }
 
   return connect(mapStateToProps)(AuthenticatedComponent);
 }
