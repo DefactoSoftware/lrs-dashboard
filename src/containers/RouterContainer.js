@@ -12,9 +12,9 @@ export default ({ history })=>(
     <Route path="/" component={ApplicationContainer}>
       <Route path="login" component={LoginModalContainer} modal={true} />
 
-      <Route path="statements" component={requireAuthentication()}>
-        <Route path="graph" component={StatementsGraphContainer} />
-        <Route path="list" component={StatementsListContainer} />
+      <Route path="statements">
+        <Route path="graph" component={requireAuthentication(StatementsGraphContainer)} />
+        <Route path="list" component={requireAuthentication(StatementsListContainer)} />
       </Route>
 
       <Route path="users" component={requireAuthentication(UsersOverviewContainer)} />

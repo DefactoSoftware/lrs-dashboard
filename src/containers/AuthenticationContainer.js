@@ -23,15 +23,7 @@ export function requireAuthentication(Component) {
     }
 
     render() {
-      if (this.props.isAuthenticated) {
-        if (Component) {
-          return <Component {...this.props}/>;
-        }
-
-        return this.props.children;
-      }
-
-      return null;
+      return <Component {...this.props}/>;
     }
   }
 

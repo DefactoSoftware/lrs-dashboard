@@ -27,7 +27,7 @@ class ApplicationContainer extends PureComponent {
 
 const mapStateToProps = (state, ownProps) => ({
   keepPrevious: prop('keepPrevious', getLocationState(ownProps))
-})
+});
 
 
 export default connect(mapStateToProps)(ApplicationContainer);

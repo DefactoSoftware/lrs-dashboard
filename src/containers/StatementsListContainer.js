@@ -18,8 +18,8 @@ const mapStateToProps = state => ({
   statements: getSortedStatements(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onMount: ()=> dispatch(fetchStatements())
+const mapDispatchToProps = (dispatch, { isAuthenticated }) => ({
+  onMount: ()=> isAuthenticated && dispatch(fetchStatements())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatementsContainer);

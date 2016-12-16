@@ -51,8 +51,8 @@ const mapStateToProps = state => ({
   statements: getStatements(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onMount: ()=> dispatch(fetchStatements())
+const mapDispatchToProps = (dispatch, { isAuthenticated }) => ({
+  onMount: ()=> isAuthenticated && dispatch(fetchStatements())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatementsGraphContainer);
