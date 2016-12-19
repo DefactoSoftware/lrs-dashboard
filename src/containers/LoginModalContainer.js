@@ -5,6 +5,7 @@ import { prop } from 'ramda';
 import { authenticateUser } from '../actions/sessions';
 import LoginModal from '../components/LoginModal';
 import { getPreviousState } from '../selectors/location';
+import { isAuthenticated } from '../selectors/session';
 
 class LoginContainer extends PureComponent {
   state = {
@@ -26,9 +27,12 @@ class LoginContainer extends PureComponent {
   }
 
   checkAuth({ isAuthenticated, returnTo }) {
-    if (isAuthenticated && returnTo) {
+    if (isAuthenticated) {
       browserHistory.replace({
         pathname: returnTo,
+        state: {
+          keepPrevious: false
+        }
       });
     }
   }
@@ -61,8 +65,7 @@ class LoginContainer extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  state,
-  isAuthenticated: !!state.sessions.user,
+  isAuthenticated: isAuthenticated(state),
   returnTo: prop('returnTo', getPreviousState(state)) || '/'
 });
 

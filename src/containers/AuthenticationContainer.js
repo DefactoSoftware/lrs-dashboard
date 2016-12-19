@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { getPathName } from '../selectors/location';
+import { isAuthenticated } from '../selectors/session';
 
 export function requireAuthentication(Component) {
   class AuthenticatedComponent extends PureComponent {
@@ -29,7 +30,7 @@ export function requireAuthentication(Component) {
 
   const mapStateToProps = (state, ownProps) => {
     return ({
-      isAuthenticated: !!state.sessions.user,
+      isAuthenticated: isAuthenticated(state),
       returnTo: getPathName(ownProps) || '/'
     });
   }
