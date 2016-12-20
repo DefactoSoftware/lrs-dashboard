@@ -6,5 +6,11 @@ cd "$(dirname "$0")/.."
 echo "\n==> Running unit tests..."
 CI=true ./bin/node-harmony-proxies ./bin/unit-tests
 
+
+if [ ! $SKIP_BUILD ]; then
+  echo "\n==> Building application for test environment..."
+  NODE_ENV="test" script/build config/webpack/test.js
+fi
+
 echo "\n==> Running acceptance tests..."
 CI=true ./bin/acceptance-tests
