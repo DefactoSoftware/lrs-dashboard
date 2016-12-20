@@ -9,8 +9,8 @@ import { isAuthenticated } from '../selectors/session';
 
 class LoginContainer extends PureComponent {
   state = {
-    email: 'foo@bar.com',
-    password: '12345678',
+    email: '',
+    password: '',
   };
 
   componentWillMount() {
