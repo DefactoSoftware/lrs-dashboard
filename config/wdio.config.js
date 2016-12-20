@@ -10,4 +10,15 @@ if (process.env.DEBUG) {
   config.cucumberOpts.timeout = timeout;
 }
 
+config.services = [
+  ...config.services,
+  'spa-server'
+];
+
+config.spaServer = {
+  path: './build',
+  port: 8080,
+  fallback: 'index.html',
+}
+
 exports.config = config;

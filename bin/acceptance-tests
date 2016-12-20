@@ -3,17 +3,4 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-trap "trap - SIGTERM 2> /dev/null && kill -- -$$ 2> /dev/null" INT TERM EXIT
-
-NODE_BIN="./node_modules/.bin"
-NODE_ENV="test" script/build config/webpack/test.js
-
-$NODE_BIN/http-server build/ --silent &
-
-PARAMETERS=""
-
-if [ "$1" != "" ]; then
-  PARAMETERS="--spec $1"
-fi
-
-APPLICATION_URL="http://localhost:9000" $NODE_BIN/wdio config/wdio.config.js $PARAMETERS
+APPLICATION_URL="http://localhost:8080" ./node_modules/.bin/wdio config/wdio.config.js $@

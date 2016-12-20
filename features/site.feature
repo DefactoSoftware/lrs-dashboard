@@ -1,4 +1,4 @@
-Feature: The site should work
+Feature: The application loads
   Background:
     When I open the site "/"
 

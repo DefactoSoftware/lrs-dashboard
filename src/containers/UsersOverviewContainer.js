@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import UsersOverview from '../components/UsersOverview';
 import { fetchUsers } from '../actions/users';
 import { getUsers } from '../selectors/users';
 
-class UsersOverviewContainer extends Component {
+class UsersOverviewContainer extends PureComponent {
   componentDidMount () {
     this.props.onMount();
   }
@@ -19,8 +19,8 @@ const mapStateToProps = state => ({
   users: getUsers(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onMount: ()=> dispatch(fetchUsers())
+const mapDispatchToProps = (dispatch, { isAuthenticated }) => ({
+  onMount: ()=> isAuthenticated && dispatch(fetchUsers())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersOverviewContainer);

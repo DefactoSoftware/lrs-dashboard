@@ -9,8 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 import { AppContainer } from 'react-hot-loader';
 import reducers from './reducers';
 import RouterContainer from './containers/RouterContainer';
-import { watchStatements } from './actions/statements';
-import { watchUsers } from './actions/users';
+import sagas from './actions/sagas';
 
 const saga = createSagaMiddleware();
 
@@ -25,8 +24,7 @@ const store = createStore(
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-saga.run(watchStatements);
-saga.run(watchUsers);
+sagas.forEach(saga.run);
 
 const render = (container)=> (ReactDOM.render((
   <AppContainer>
