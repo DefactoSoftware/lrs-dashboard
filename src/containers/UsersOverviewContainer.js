@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, { isAuthenticated }) => ({
-  onMount: ()=> isAuthenticated & dispatch(fetchUsers())
+  onMount: ()=> isAuthenticated && dispatch(fetchUsers())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersOverviewContainer);

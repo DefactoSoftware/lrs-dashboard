@@ -16,7 +16,7 @@ function getClientEnvironment(publicUrl) {
       'NODE_ENV': JSON.stringify(
         process.env.NODE_ENV || 'development'
       ),
-      'LRS_DASHBOARD_API_URL': JSON.stringify('http://localhost:4000/api'),
+      'LRS_DASHBOARD_API_URL': JSON.stringify('/api'),
       // Useful for resolving the correct path to static assets in `public`.
       // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
       // This should only be used as an escape hatch. Normally you would put

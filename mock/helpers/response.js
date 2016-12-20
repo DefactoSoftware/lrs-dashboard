@@ -1,11 +1,24 @@
-export function status200(response, type) {
-  if (typeof response === 'object') {
-    return [
-      200,
-      { 'Content-Type': 'application/json' },
-      JSON.stringify(response)
-    ];
+import { partial } from 'ramda';
+
+const JSONResponse = (status = 200, body = {}, headers = {})=> [
+  status,
+  { 'Content-Type': 'application/json', ...headers },
+  JSON.stringify(body)
+];
+
+const StringResponse = (status = 200, body = '', headers = {})=> [
+  status,
+  headers,
+  body
+];
+
+const response = (status, body = undefined, headers = {})=> {
+  if (typeof body === 'object') {
+    return JSONResponse(status, body, headers);
   }
 
-  return [ 200, {}, response ];
-}
+  return StringResponse(status, body, headers);
+};
+
+export const status200 = partial(response, [200]);
+export const status404 = partial(response, [404]);

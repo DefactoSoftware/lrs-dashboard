@@ -26,7 +26,7 @@ module.exports = {
   devtool: 'eval-source-map',
   // In production, we only want to load the polyfills and the app code.
   entry: [
-    require.resolve('../../mock/config'),
+    paths.mockConfig,
     require.resolve('../polyfills'),
     paths.appIndexJs
   ],
@@ -75,7 +75,7 @@ module.exports = {
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
-        include: paths.appSrc,
+        include: [paths.appSrc, paths.mockSrc],
         loader: 'babel',
       },
       // The notation here is somewhat confusing.

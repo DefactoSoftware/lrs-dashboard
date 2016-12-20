@@ -30,7 +30,7 @@ export default function (scenario = getScenarioFromURL()) {
   }, require(`../scenarios/${scenario || 'default'}`));
 
   server.handledRequest = function(verb, path, request) {
-    console.groupCollapsed(verb, path);
+    console.groupCollapsed(verb, path, request.status);
 
     if (request.responseHeaders['Content-Type'] === 'application/json') {
       console.log(JSON.parse(request.responseText));
