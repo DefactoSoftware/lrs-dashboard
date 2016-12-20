@@ -3,4 +3,4 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-APPLICATION_URL="http://localhost:8080" wdio config/wdio.config.js $@
+APPLICATION_URL="http://localhost:8080" ./node_modules/.bin/wdio config/wdio.config.js $@
