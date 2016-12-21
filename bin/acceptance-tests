@@ -3,4 +3,19 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-APPLICATION_URL="http://localhost:8080" ./node_modules/.bin/wdio config/wdio.config.js $@
+CONFIG="config/wdio/local.js"
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -c | --config )       shift
+                              CONFIG=$1
+                              ;;
+        -s | --spec )         shift
+                              SPEC="--spec $1"
+                              ;;
+        * )                   exit 1
+    esac
+    shift
+done
+
+APPLICATION_URL="http://localhost:8080" ./node_modules/.bin/wdio $CONFIG $SPEC

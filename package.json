@@ -59,6 +59,7 @@
     "webpack-dev-server": "1.16.2",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.1",
+    "yarg": "^1.0.8",
     "yargs": "^6.4.0"
   },
   "dependencies": {

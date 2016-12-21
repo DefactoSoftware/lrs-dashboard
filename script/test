@@ -4,8 +4,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 echo "\n==> Running unit tests..."
-CI=true ./bin/node-harmony-proxies ./bin/unit-tests
-
+./bin/node-harmony-proxies ./bin/unit-tests
 
 if [ ! $SKIP_BUILD ]; then
   echo "\n==> Building application for test environment..."
@@ -13,4 +12,4 @@ if [ ! $SKIP_BUILD ]; then
 fi
 
 echo "\n==> Running acceptance tests..."
-CI=true ./bin/acceptance-tests
+./bin/acceptance-tests --config config/wdio/ci.js

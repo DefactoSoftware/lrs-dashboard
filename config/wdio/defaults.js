@@ -1,8 +1,5 @@
 const config = require('wdio-cucumber-utilities');
 
-config.specs = ['./features/**/*.feature'];
-config.baseURL = process.env.APPLICATION_URL || 'http://localhost:3000'
-
 if (process.env.DEBUG) {
   const timeout = (1000 * 60 * 60 * 24);
   config.debug = true;
@@ -10,8 +7,10 @@ if (process.env.DEBUG) {
   config.cucumberOpts.timeout = timeout;
 }
 
+config.specs = ['./features/**/*.feature'];
+config.baseURL = process.env.APPLICATION_URL || 'http://localhost:3000'
+
 config.services = [
-  ...config.services,
   'spa-server'
 ];
 
@@ -21,4 +20,4 @@ config.spaServer = {
   fallback: 'index.html',
 }
 
-exports.config = config;
+module.exports = config;
