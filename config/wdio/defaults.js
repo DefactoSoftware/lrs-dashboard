@@ -1,3 +1,5 @@
+const path = require('path');
+const glob = require('glob');
 const config = require('wdio-cucumber-utilities');
 
 if (process.env.DEBUG) {
@@ -19,5 +21,15 @@ config.spaServer = {
   port: 8080,
   fallback: 'index.html',
 }
+
+const stepDefinitionsFiles = glob.sync(
+  path.join(__dirname, '../../features/step_definitions/**/*.js')
+);
+const supportFiles = glob.sync(
+  path.join(__dirname, '../../features/support/**/*.js')
+);
+
+config.cucumberOpts.require = config.cucumberOpts.require.concat(stepDefinitionsFiles)
+                                                         .concat(supportFiles);
 
 module.exports = config;

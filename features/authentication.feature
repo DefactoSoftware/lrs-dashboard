@@ -3,6 +3,7 @@ Feature: Authentication
     When I open the site "/login"
 
   Scenario: When succesfully login
+    Then I want the page to be accessible
     When I add "foo@bar.com" to the inputfield "input[placeholder='Email...']"
     And I add "hallo" to the inputfield "input[placeholder='Password...']"
     And I click on the button "input[value='Submit']"

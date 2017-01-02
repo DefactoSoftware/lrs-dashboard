@@ -4,6 +4,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 CONFIG="config/wdio/local.js"
+DEBUG=false
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -13,9 +14,11 @@ while [ "$1" != "" ]; do
         -s | --spec )         shift
                               SPEC="--spec $1"
                               ;;
+        -d | --debug )        DEBUG=true
+                              ;;
         * )                   exit 1
     esac
     shift
 done
 
-APPLICATION_URL="http://localhost:8080" ./node_modules/.bin/wdio $CONFIG $SPEC
+DEBUG=$DEBUG APPLICATION_URL="http://localhost:8080" ./node_modules/.bin/wdio $CONFIG $SPEC

@@ -20,6 +20,7 @@ const entries = [
   require.resolve('react-hot-loader/patch'),
   require.resolve('webpack-hot-middleware/client'),
   require.resolve('../polyfills'),
+  paths.a11yConfig,
   paths.appIndexJs
 ];
 
@@ -88,7 +89,7 @@ module.exports = {
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
-        include: [paths.appSrc, paths.mockSrc],
+        include: [paths.appSrc, paths.mockSrc, paths.a11ySrc],
         loader: 'babel',
       },
       // "postcss" loader applies autoprefixer to our CSS.
@@ -98,7 +99,7 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.css$/,
-        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[path][name]---[local]---[hash:base64:5]!postcss'
+        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[path][name]---[local]!postcss'
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.

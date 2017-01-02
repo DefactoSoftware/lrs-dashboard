@@ -8,7 +8,7 @@ echo "\n==> Running unit tests..."
 
 if [ ! $SKIP_BUILD ]; then
   echo "\n==> Building application for test environment..."
-  NODE_ENV="test" script/build config/webpack/test.js
+  NODE_ENV="test" script/build test
 fi
 
 echo "\n==> Running acceptance tests..."

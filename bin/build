@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const webpack = require('webpack');
+const chalk = require('chalk');
+const argv = require('yargs')
+  .usage('$0 [environment]')
+  .alias('w', 'watch')
+  .argv;
+
+const environment = argv._[0] || 'production';
+const config = require(path.join('..', 'config', 'webpack', environment + '.js'));
+const watch = argv.watch;
+
+process.env.NODE_ENV = environment;
+
+// Print out errors
+function handleErrors(summary, errors) {
+  console.log(chalk.red(summary));
+  console.log();
+  errors.forEach(err => {
+    console.log(err.message || err);
+    console.log();
+  });
+
+  if (!watch) {
+    process.exit(1);
+  }
+}
+
+function compilationHandler(err, stats) {
+  if (err) {
+    return handleErrors('Failed to compile.', [err]);
+  }
+
+  if (stats.compilation.errors.length) {
+    return handleErrors('Failed to compile.', stats.compilation.errors);
+  }
+
+  console.log(chalk.green('Compiled successfully.'));
+  console.log();
+}
+
+const compiler = webpack(config);
+
+if (watch) {
+  compiler.watch({}, compilationHandler);
+} else {
+  compiler.run(compilationHandler);
+}

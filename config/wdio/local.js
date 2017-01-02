@@ -1,4 +1,4 @@
-const config = require('defaults');
+const config = require('./defaults');
 
 config.services = ['selenium-standalone', ...config.services];
 
