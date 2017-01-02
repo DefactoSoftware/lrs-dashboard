@@ -63,6 +63,7 @@
     "yargs": "^6.4.0"
   },
   "dependencies": {
+    "accessibility-developer-tools": "git://github.com/jessedijkstra/accessibility-developer-tools#fix-npm-export",
     "babel-cli": "^6.18.0",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-polyfill": "^6.16.0",
@@ -72,6 +73,7 @@
     "d3": "^4.3.0",
     "d3-force": "^1.0.3",
     "eslint-config-react-app": "^0.3.0",
+    "glob": "^7.1.1",
     "http-proxy-middleware": "^0.17.2",
     "postcss-autoreset": "^1.2.1",
     "postcss-color-function": "^2.0.1",

@@ -33,6 +33,8 @@ module.exports = {
   appSrc: resolveApp('src'),
   mockSrc: resolveApp('mock'),
   mockConfig: resolveApp('mock/config.js'),
+  a11ySrc: resolveApp('config/a11y.js'),
+  a11yConfig: resolveApp('config/a11y.js'),
   testsSetup: resolveApp('src/setupTests.js'),
   appNodeModules: resolveApp('node_modules'),
   ownNodeModules: resolveApp('node_modules'),
