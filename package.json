@@ -54,6 +54,7 @@
     "strip-ansi": "3.0.1",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
+    "wdio-junit-reporter": "^0.2.0",
     "wdio-spa-server-service": "^1.0.0",
     "webpack": "1.13.3",
     "webpack-dev-server": "1.16.2",
